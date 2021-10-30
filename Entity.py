@@ -18,8 +18,7 @@ class Entity(Physics):
         self.force = {"x" : self.mass*self.acceleration["x"], "y" : self.mass*self.acceleration["y"]}
 
     def update(self, deltaTime):
-        self.calculateForce()
-        self.collision(deltaTime=deltaTime)
+        self.calculateVelocityandForce(deltaTime=deltaTime)
         if self.doesapplyGravity:
             self.applyGravity(deltaTime=deltaTime)
         self.superParent.draw.rect(self.parent, self.color, self.object)

@@ -1,7 +1,5 @@
 import pygame
 import time
-
-from pygame import draw
 from Entity import Entity
 # importing dependencies 
 
