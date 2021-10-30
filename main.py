@@ -9,7 +9,7 @@ displayResoultion = (500, 600)
 # setting the resolution of the screen 
 FPS = 60
 # defining the default fps rate of the game 
-DefaultGravity = 9.81
+DefaultGravity = 9.80665
 # defining the default gravity of the scene 
 
 
@@ -19,7 +19,7 @@ pygame.display.set_caption("Physics Engine?")
 # setting the title 
 borderLine = pygame.Rect(0, displayResoultion[1], displayResoultion[0], 50)
 collisionObjects = [borderLine]
-rectBoi = Entity(object=pygame.Rect(30, 30, 60, 60), color=(0,255,255), parent=screen, superParent=pygame, gravityScale=1, collisionObjects=collisionObjects)
+rectBoi = Entity(object=pygame.Rect(30, 30, 60, 60), color=(0,255,255), parent=screen, superParent=pygame, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665)
 # the default square 
 
 def drawing(deltatime):

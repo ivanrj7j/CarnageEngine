@@ -15,18 +15,15 @@ class Entity(Physics):
         self.velocity = Vector(0,0)
         self.collisionObjects = collisionObjects
         self.airDrag = airDrag
-        self.acceleration = Vector(0,0)
-        self.force = Vector(self.mass*self.acceleration.x, self.mass*self.acceleration.x)
         self.kinematic = Kinematic
+        self.kineticEnergy = 1
 
     def update(self, deltaTime):
         if not self.kinematic:
             self.collision(deltaTime)
             if self.doesapplyGravity:
-                self.applyGravity(deltaTime=deltaTime)
-                # applying gravity 
-            self.collision(deltaTime)
-            # applying collision 
+                self.applyGravity(deltaTime)
+                # applying gravity  
         self.superParent.draw.rect(self.parent, self.color, self.object)
         # drawing the object 
 

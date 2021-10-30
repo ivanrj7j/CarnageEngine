@@ -9,46 +9,46 @@ class Physics():
         self.velocity = Vector(0,0)
         self.mass = mass
         self.collisionObjects = collisionObjects
-        self.acceleration = Vector(0,0)
-        self.force = Vector(self.mass*self.acceleration.x, self.mass*self.acceleration.x)
         self.airDrag = 1-airDrag
         self.potentialEnergy = 0
         self.doesapplyGravity = True
+        self.kineticEnergy = 1
 
-    def applyGravity(self, deltaTime):
-        self.force.y = ((self.gravityScale*self.defaultGravityAccelaration) * self.airDrag) * deltaTime
-        self.calculateAccelaration(deltaTime)
-        self.calculateVelocityandForce(deltaTime)
-        self.move(deltaTime=deltaTime)
+    def applyGravity(self, dt):
+        if self.doesapplyGravity:
+            self.velocity += (0, self.defaultGravityAccelaration*self.gravityScale*self.airDrag)
+            self.object.x += self.velocity.x * dt
+            self.object.y += self.velocity.y * dt
+
         
-    def applyForce(self, deltaTime, considerMass = True):
-        pass
+    def applyForce(self, dt ,force:Vector, considerMass = True):
+        if considerMass:
+            self.velocity += force/self.mass
+            self.move(dt)
+        else :
+            self.velocity += force
+            self.move(dt)
 
-    def move(self, deltaTime):
-        self.object.x += self.velocity.x * deltaTime
-        self.object.y += self.velocity.y * deltaTime
-        # moving the object according to the velocity 
+    def move(self, dt):
+        self.object.x += self.velocity.x * dt
+        self.object.y += self.velocity.y * dt
+        
 
     def collision(self, dt):
-        for collisionObject in self.collisionObjects: 
-            if (self.object.bottom) >= collisionObject.y:
-                self.doesapplyGravity = False
-                self.acceleration = Vector(0,0)
+        for collisionBody in self.collisionObjects:
+            if self.object.bottom >= collisionBody.y:
                 self.velocity = Vector(0,0)
-                self.force = Vector(0,0)
-                self.move(dt)
+                self.doesapplyGravity = False
+                if self.kineticEnergy <= 1 and self.kineticEnergy >=0:
+                    self.kineticEnergy -= ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass * self.object.height) / 1000
+                    if self.kineticEnergy < 0:
+                        self.kineticEnergy = 0
+                force = Vector(0,-(self.defaultGravityAccelaration*self.gravityScale*self.airDrag)) * self.mass * self.object.height / 5 * self.kineticEnergy
+                self.applyForce(force=force, considerMass=False, dt=dt)
             else:
                 self.doesapplyGravity = True
+    def calculateVelocityandForce(self,dt):
+        pass
 
-    def calculateVelocityandForce(self,deltaTime):
-        self.velocity.x += self.acceleration.x * deltaTime
-        self.velocity.y += self.acceleration.y * deltaTime
-        # calculating the velocity (a = v/t)
-        self.force.x = (self.acceleration.x*self.mass) * deltaTime
-        self.force.y = (self.acceleration.y*self.mass) * deltaTime
-        # calculating force (f=ma)
-
-    def calculateAccelaration(self, deltaTime):
-        self.acceleration = Vector((self.force.x / self.mass)*deltaTime, (self.force.y / self.mass) * deltaTime)
-        # calculating accelaration (a = f/m)
-        
+    def calculateAccelaration(self, dt):
+       pass
