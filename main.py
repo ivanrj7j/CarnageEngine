@@ -1,5 +1,6 @@
 import pygame
 import time
+from Vector import Vector
 from Entity import Entity
 # importing dependencies 
 
@@ -25,10 +26,15 @@ rectBoi = Entity(object=pygame.Rect(30, 30, 60, 60), color=(0,255,255), parent=s
 def drawing(deltatime):
     screen.fill((255,255,255))
     # filling the screen 
-
-
     rectBoi.update(deltaTime=deltatime)
     # updating the rectangle 
+
+def jump(entity:Entity, dt):
+    entity.applyForce(dt, Vector(0, -50))
+
+def inputControls(key, dt):
+    if key == pygame.K_SPACE:
+        jump(rectBoi, dt)
 
 def main():
     deltaTime = 0
@@ -48,6 +54,8 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.KEYDOWN:
+                inputControls(event.key, deltaTime)
 
     pygame.quit()
 
