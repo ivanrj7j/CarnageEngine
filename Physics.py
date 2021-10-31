@@ -24,12 +24,14 @@ class Physics():
     def applyForce(self, dt ,force:Vector, considerMass = True, kineticEnergy = 1, applyKineticEnergy = False):
         if applyKineticEnergy:
             self.kineticEnergy = kineticEnergy
+            # applies kinetic energy 
         if considerMass:
             self.velocity += force/self.mass
             self.move(dt)
         else :
             self.velocity += force
             self.move(dt)
+        
 
     def move(self, dt):
         self.object.x += self.velocity.x * dt
@@ -50,6 +52,9 @@ class Physics():
                 self.applyForce(force=force, considerMass=False, dt=dt)
             else:
                 self.doesapplyGravity = True
+
+            if self.object.bottom >= collisionBody.y:
+                self.object.y = collisionBody.y - self.object.height
     def calculateVelocityandForce(self,dt):
         pass
 
