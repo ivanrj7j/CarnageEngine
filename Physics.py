@@ -43,7 +43,8 @@ class Physics():
                     self.kineticEnergy -= ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass * self.object.height) / 1000
                     if self.kineticEnergy < 0:
                         self.kineticEnergy = 0
-                force = Vector(0,-(self.defaultGravityAccelaration*self.gravityScale*self.airDrag)) * self.mass * self.object.height / 5 * self.kineticEnergy
+                force = Vector(0,-(self.defaultGravityAccelaration*self.gravityScale*self.airDrag)) * self.mass * self.object.height / 5 
+                force = Vector(force.x * self.kineticEnergy, force.y * self.kineticEnergy)
                 self.applyForce(force=force, considerMass=False, dt=dt)
             else:
                 self.doesapplyGravity = True
