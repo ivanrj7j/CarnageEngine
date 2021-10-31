@@ -30,7 +30,7 @@ def drawing(deltatime):
     # updating the rectangle 
 
 def jump(entity:Entity, dt):
-    entity.applyForce(dt, Vector(0, -50))
+    entity.applyForce(dt, Vector(0, -50), applyKineticEnergy=True)
 
 def inputControls(key, dt):
     if key == pygame.K_SPACE:

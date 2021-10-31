@@ -21,7 +21,9 @@ class Physics():
             self.object.y += self.velocity.y * dt
 
         
-    def applyForce(self, dt ,force:Vector, considerMass = True):
+    def applyForce(self, dt ,force:Vector, considerMass = True, kineticEnergy = 1, applyKineticEnergy = False):
+        if applyKineticEnergy:
+            self.kineticEnergy = kineticEnergy
         if considerMass:
             self.velocity += force/self.mass
             self.move(dt)
