@@ -3,7 +3,7 @@ from Physics import Physics
 from Vector import Vector
 
 class Entity(Physics):
-    def __init__(self,superParent:pygame,parent, object:pygame.Rect,color:tuple,collisionObjects:list, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False) -> None:
+    def __init__(self,superParent:pygame,parent, object:pygame.Rect,color:tuple,collisionObjects:list, centreOfMass:Vector, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False) -> None:
         self.object = object
         self.gravityScale = gravityScale
         self.defaultGravityAccelaration = defaultGravityAccelaration
@@ -17,6 +17,7 @@ class Entity(Physics):
         self.airDrag = airDrag
         self.kinematic = Kinematic
         self.kineticEnergy = 1
+        self.centreOfMass = centreOfMass
 
     def update(self, deltaTime):
         if not self.kinematic:

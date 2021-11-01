@@ -2,7 +2,7 @@ import pygame
 from Vector import Vector
 
 class Physics():
-    def __init__(self, object:pygame.Rect,collisionObjects:list, gravityScale=1, defaultGravityAccelaration=-9.81, mass = 1, airDrag = 0.2) -> None:
+    def __init__(self, object:pygame.Rect,collisionObjects:list, centreOfMass:Vector, gravityScale=1, defaultGravityAccelaration=-9.81, mass = 1, airDrag = 0.2) -> None:
         self.object = object
         self.gravityScale = gravityScale
         self.defaultGravityAccelaration = defaultGravityAccelaration
@@ -13,6 +13,7 @@ class Physics():
         self.potentialEnergy = 0
         self.doesapplyGravity = True
         self.kineticEnergy = 1
+        self.centreOfMass = centreOfMass
 
     def applyGravity(self, dt):
         if self.doesapplyGravity:
