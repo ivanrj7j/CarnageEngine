@@ -1,9 +1,13 @@
 import pygame
 from Vector import Vector
+from Vector import calculateAngleBetweenTwoVectors
+from Vector import calculateDistanceBetweenTwoVectors
+import math
 
 class Physics():
-    def __init__(self, object:pygame.Rect,collisionObjects:list, centreOfMass:Vector, gravityScale=1, defaultGravityAccelaration=-9.81, mass = 1, airDrag = 0.2) -> None:
+    def __init__(self, object:pygame.Rect,collisionObjects:list, centreOfMass:Vector,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=-9.81, mass = 1, airDrag = 0.2) -> None:
         self.object = object
+        self.surface = surface
         self.gravityScale = gravityScale
         self.defaultGravityAccelaration = defaultGravityAccelaration
         self.velocity = Vector(0,0)
@@ -20,6 +24,14 @@ class Physics():
             self.velocity += (0, self.defaultGravityAccelaration*self.gravityScale*self.airDrag)
             self.object.x += self.velocity.x * dt
             self.object.y += self.velocity.y * dt
+            rotation = 0
+            radius = calculateDistanceBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
+            force_applying = ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass)
+            angle = calculateAngleBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
+            rotation = radius * force_applying * math.sin(angle)
+            print(rotation *(dt / 60))
+            self.surface = pygame.transform.rotate(self.surface, rotation)
+
 
         
     def applyForce(self, dt ,force:Vector, considerMass = True, kineticEnergy = 1, applyKineticEnergy = False):
