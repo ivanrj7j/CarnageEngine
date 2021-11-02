@@ -40,7 +40,7 @@ class Physics():
             # calculating the angle between centre of mass and top of the object 
             rotation = radius * force_applying * math.sin(angle) * (dt / 60)
             # finding the rotation 
-            self.surface = pygame.transform.rotate(self.surface, rotation)
+            # self.surface = pygame.transform.rotate(self.surface, rotation)
             # rotating the object 
 
             # calculating the rotation 
@@ -99,7 +99,7 @@ class Physics():
             if self.object.bottom >= collisionBody.y:
                 self.object.y = collisionBody.y - self.object.height
                 # stopping the overlaping of 2 object 
-                
+
     def calculateVelocityandForce(self,dt):
         pass
 

@@ -21,6 +21,7 @@ class Entity(Physics):
         self.kineticEnergy = 1
         self.centreOfMass = centreOfMass
         self.shouldUseColor = shouldUseColor
+        # Initialising all the variables 
 
     def update(self, deltaTime):
         if not self.kinematic:
@@ -28,8 +29,12 @@ class Entity(Physics):
             if self.doesapplyGravity:
                 self.applyGravity(deltaTime)
                 # applying gravity  
-        # if self.shouldUseColor:
-        #     self.surface.fill(self.color, self.object)
+        # applying all the forces to the object 
+
+        if self.shouldUseColor:
+            self.surface.fill(self.color)
+            # filling the color 
+
         self.superParent.blit(self.surface, (self.object))
         # drawing the object 
 
