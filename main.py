@@ -2,6 +2,7 @@ import pygame
 import time
 from Vector import Vector
 from Entity import Entity
+from InputControl import hasInput
 # importing dependencies 
 
 pygame.init()
@@ -30,7 +31,7 @@ def drawing(deltatime):
     # updating the rectangle 
 
 def jump(entity:Entity, dt):
-    entity.applyForce(dt, Vector(0, -50), applyKineticEnergy=True)
+    entity.applyForce(dt, Vector(7, -50), applyKineticEnergy=True)
 
 def inputControls(key, dt):
     if key == pygame.K_SPACE:
@@ -56,6 +57,8 @@ def main():
                 running = False
             elif event.type == pygame.KEYDOWN:
                 inputControls(event.key, deltaTime)
+                print(hasInput({"Jump": [pygame.K_RIGHT, pygame.K_LEFT]}, event.key))
+
 
     pygame.quit()
 
