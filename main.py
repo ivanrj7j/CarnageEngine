@@ -14,6 +14,8 @@ FPS = 60
 DefaultGravity = 9.80665
 # defining the default gravity of the scene 
 
+sprite = pygame.image.load("testFiles/frame6104.jpg")
+sprite = pygame.transform.scale(sprite, (80, 45))
 
 screen = pygame.display.set_mode(displayResoultion)
 # initalising the display 
@@ -21,7 +23,7 @@ pygame.display.set_caption("Physics Engine?")
 # setting the title 
 borderLine = pygame.Rect(0, displayResoultion[1], displayResoultion[0], 50)
 collisionObjects = [borderLine]
-rectBoi = Entity(object=pygame.Rect(30, 30, 60, 60), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector(30,30), surface=pygame.Surface((60,60)))
+rectBoi = Entity(object=pygame.Rect(30, 30, 80, 45), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector(30,30), surface=sprite, shouldUseColor=False)
 # the default square 
 
 def drawing(deltatime):

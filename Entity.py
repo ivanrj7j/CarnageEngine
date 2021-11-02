@@ -7,6 +7,7 @@ class Entity(Physics):
     def __init__(self,superParent:pygame.display,parent, object:pygame.Rect,color:tuple,collisionObjects:list, centreOfMass:Vector,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False, shouldUseColor=True) -> None:
         self.object = object
         self.surface = surface
+        self.surfaceOriginal = self.surface
         self.gravityScale = gravityScale
         self.defaultGravityAccelaration = defaultGravityAccelaration
         self.mass = mass
@@ -21,6 +22,7 @@ class Entity(Physics):
         self.kineticEnergy = 1
         self.centreOfMass = centreOfMass
         self.shouldUseColor = shouldUseColor
+        self.rotation = 0
         # Initialising all the variables 
 
     def update(self, deltaTime):
@@ -35,7 +37,7 @@ class Entity(Physics):
             self.surface.fill(self.color)
             # filling the color 
 
-        self.superParent.blit(self.surface, (self.object))
+        self.superParent.blit(self.surface, (self.object.x, self.object.y, self.object.width, self.object.height))
         # drawing the object 
 
         

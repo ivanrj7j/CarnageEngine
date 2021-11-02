@@ -141,4 +141,5 @@ cython_debug/
 __pycache__/Entity.cpython-39.pyc
 __pycache__/Physics.cpython-39.pyc
 
-./__pycache__
+__pycache__/
+testFiles/

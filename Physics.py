@@ -8,6 +8,7 @@ class Physics():
     def __init__(self, object:pygame.Rect,collisionObjects:list, centreOfMass:Vector,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=-9.81, mass = 1, airDrag = 0.2) -> None:
         self.object = object
         self.surface = surface
+        self.surfaceOriginal = self.surface
         self.gravityScale = gravityScale
         self.defaultGravityAccelaration = defaultGravityAccelaration
         self.velocity = Vector(0,0)
@@ -18,6 +19,7 @@ class Physics():
         self.doesapplyGravity = True
         self.kineticEnergy = 1
         self.centreOfMass = centreOfMass
+        self.rotation = 0
         # Initialising all the variables 
 
     def applyGravity(self, dt):
@@ -38,14 +40,14 @@ class Physics():
             # calculating the force applied to the object 
             angle = calculateAngleBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
             # calculating the angle between centre of mass and top of the object 
-            rotation = radius * force_applying * math.sin(angle) * (dt / 60)
+            rotation = radius * force_applying * math.sin(angle) * (dt/60)
+            self.rotation = (self.rotation + rotation) % 360
             # finding the rotation 
-            # self.surface = pygame.transform.rotate(self.surface, rotation)
+            self.surface = self.rotate(self.surfaceOriginal, -self.rotation)
             # rotating the object 
 
             # calculating the rotation 
-
-
+            
         
     def applyForce(self, dt ,force:Vector, considerMass = True, kineticEnergy = 1, applyKineticEnergy = False):
         """Applies a force to the object"""
@@ -106,3 +108,7 @@ class Physics():
     def calculateAccelaration(self, dt):
        pass
 
+    def rotate(self, surface, angle):
+        """Rotates the given surface with the given angle"""
+        rotated_rect = pygame.transform.rotate(surface, angle)
+        return rotated_rect
