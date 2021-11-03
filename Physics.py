@@ -34,19 +34,21 @@ class Physics():
             # moving the object 
             # calculating the motion 
 
-            radius = calculateDistanceBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
-            # calculating distance between centre of mass and top of the object 
-            force_applying = ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass)
-            # calculating the force applied to the object 
-            angle = calculateAngleBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
-            # calculating the angle between centre of mass and top of the object 
-            rotation = radius * force_applying * math.sin(angle) * (dt/60)
-            self.rotation = (self.rotation + rotation) % 360
-            # finding the rotation 
-            self.surface = self.rotate(self.surfaceOriginal, -self.rotation)
-            # rotating the object 
+            # radius = calculateDistanceBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
+            # # calculating distance between centre of mass and top of the object 
+            # force_applying = ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass)
+            # # calculating the force applied to the object 
+            # angle = calculateAngleBetweenTwoVectors(self.centreOfMass, Vector(0, self.object.width / 2))
+            # # calculating the angle between centre of mass and top of the object 
+            # # rotation = radius * force_applying * math.sin(angle) * (dt/60)
+            # rotation_accelaration = (2*force_applying) / (self.mass * radius)
+            # rotation = dt + ((rotation_accelaration / 2)*(dt**2)) * self.kineticEnergy
+            # self.rotation = (self.rotation + rotation) % 360
+            # # finding the rotation 
+            # self.surface = self.rotate(self.surfaceOriginal, -self.rotation)
+            # # rotating the object 
 
-            # calculating the rotation 
+            # # calculating the rotation 
             
         
     def applyForce(self, dt ,force:Vector, considerMass = True, kineticEnergy = 1, applyKineticEnergy = False):
