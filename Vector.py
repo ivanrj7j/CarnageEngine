@@ -70,6 +70,14 @@ def calculateDistanceBetweenTwoVectors(a:Vector, b:Vector):
     distance = math.sqrt(((b.x - a.x)**2) + ((b.y - a.y)**2))
     return distance
 
+def findVectorWithDistanceAndAngle(initialPosition:Vector, angle:float, distance:float):
+    newX = initialPosition.x + (distance * math.cos(math.radians(angle)))
+    newY = initialPosition.y + (distance * math.sin(math.radians(angle)))
+    if angle == 90 or angle == 270:
+        newX = 0
+    if angle == 180 or angle == 360:
+        newY = 0
+    return Vector(newX, newY)
+
 if __name__ == "__main__":
-    print(calculateAngleBetweenTwoVectors(Vector(10, 10), Vector(10, 20)))
-    print(calculateDistanceBetweenTwoVectors(Vector(10, 10), Vector(-69, 500)))
+    print(findVectorWithDistanceAndAngle(Vector(0,0), 69, 50))
