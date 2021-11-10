@@ -45,7 +45,6 @@ class Entity(Physics):
                 # filling the color 
 
             objectOffset = Vector2((self.object.x + offset.x) * scale , (self.object.y + offset.y) * scale)
-            print(objectOffset)
             self.superParent.blit(newSurface, (objectOffset.x, objectOffset.y, newWidth, newHieght))
             # drawing the object 
     
