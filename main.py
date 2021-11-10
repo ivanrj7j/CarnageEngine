@@ -1,3 +1,8 @@
+"""
+This file is just for debugging, ignore this file.
+This file would be removed when the first version is released.
+You can use this as a guid on how to use the game engine
+"""
 from math import trunc
 import pygame
 import time
@@ -27,6 +32,7 @@ rectBoi = Entity(object=pygame.Rect(30, 30, 80, 45), color=(0,255,255), parent=s
 # the default square 
 
 defaultCamera = Camera(Vector(20,0), screen)
+# initialising the main camera 
 
 def drawing(deltatime, entityList):
     defaultCamera.update(entityList, deltatime)
