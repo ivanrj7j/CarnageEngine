@@ -1,10 +1,10 @@
 import pygame
 from pygame import color
 from .Physics import Physics
-from .Vector import Vector
+from .Vector import Vector2
 
 class Entity(Physics):
-    def __init__(self,superParent:pygame.display,parent, object:pygame.Rect,color:tuple,collisionObjects:list, centreOfMass:Vector,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False, shouldUseColor=True, isActive = True):
+    def __init__(self,superParent:pygame.display,parent, object:pygame.Rect,color:tuple,collisionObjects:list, centreOfMass:Vector2,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False, shouldUseColor=True, isActive = True):
         self.object = object
         self.surface = surface
         self.surfaceOriginal = self.surface
@@ -15,7 +15,7 @@ class Entity(Physics):
         self.color = color
         self.parent = parent
         self.superParent = superParent
-        self.velocity = Vector(0,0)
+        self.velocity = Vector2(0,0)
         self.collisionObjects = collisionObjects
         self.airDrag = airDrag
         self.kinematic = Kinematic
@@ -26,7 +26,7 @@ class Entity(Physics):
         self.isActive = isActive
         # Initialising all the variables 
 
-    def update(self, deltaTime, offset:Vector):
+    def update(self, deltaTime, offset:Vector2):
         if self.isActive:
             if not self.kinematic:
                 self.collision(deltaTime)
@@ -38,7 +38,7 @@ class Entity(Physics):
             if self.shouldUseColor:
                 self.surface.fill(self.color)
                 # filling the color 
-            objectOffset = Vector(self.object.x + offset.x , self.object.y + offset.y)
+            objectOffset = Vector2(self.object.x + offset.x , self.object.y + offset.y)
             print(objectOffset)
             self.superParent.blit(self.surface, (objectOffset.x, objectOffset.y, self.object.width, self.object.height))
             # drawing the object 

@@ -1,11 +1,11 @@
 import pygame
 from pygame import color
 from .Entity import Entity
-from .Vector import Vector
+from .Vector import Vector2
 from pygame.color import Color
 
 class Camera():
-    def __init__(self, position:Vector,screen:pygame.display,  defaultBG = Color(255,255,255), active = True):
+    def __init__(self, position:Vector2 ,screen:pygame.display,  defaultBG = Color(255,255,255), active = True):
         self.positon = position
         self.backGround = defaultBG
         self.active = active
@@ -20,10 +20,11 @@ class Camera():
     def update(self, Entities, dt):
         if self.active:
             self.screen.fill(self.backGround)
-            cameraOffset = (self.positon - Vector.zero()) * -1
+            cameraOffset = (self.positon - Vector2.zero()) * -1
             for entity in Entities:
                 if type(entity) == Entity:
                     entity.update(dt, cameraOffset)
+            # updating the Entities 
 
     
 

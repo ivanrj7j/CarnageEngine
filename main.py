@@ -6,7 +6,7 @@ You can use this as a guid on how to use the game engine
 from math import trunc
 import pygame
 import time
-from CarnageEngine.Vector import Vector
+from CarnageEngine.Vector import Vector2
 from CarnageEngine.Entity import Entity
 from CarnageEngine.InputControl import hasInput
 from CarnageEngine.Camera import Camera
@@ -28,17 +28,17 @@ pygame.display.set_caption("Physics Engine?")
 # setting the title 
 borderLine = pygame.Rect(0, displayResoultion[1], displayResoultion[0], 50)
 collisionObjects = [borderLine]
-rectBoi = Entity(object=pygame.Rect(30, 30, 80, 45), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector(30,30), surface=pygame.Surface((80,45)), shouldUseColor=True)
+rectBoi = Entity(object=pygame.Rect(30, 30, 80, 45), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector2(30,30), surface=pygame.Surface((80,45)), shouldUseColor=True)
 # the default square 
 
-defaultCamera = Camera(Vector(20,0), screen)
+defaultCamera = Camera(Vector2(20,0), screen)
 # initialising the main camera 
 
 def drawing(deltatime, entityList):
     defaultCamera.update(entityList, deltatime)
 
 def jump(entity:Entity, dt):
-    entity.applyForce(dt, Vector(0.5, -50), applyKineticEnergy=True)
+    entity.applyForce(dt, Vector2(0.5, -50), applyKineticEnergy=True)
 
 def inputControls(key, dt):
     if key == pygame.K_SPACE:
