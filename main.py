@@ -1,10 +1,10 @@
 from math import trunc
 import pygame
 import time
-from Vector import Vector
-from Entity import Entity
-from InputControl import hasInput
-from Camera import Camera
+from CarnageEngine.Vector import Vector
+from CarnageEngine.Entity import Entity
+from CarnageEngine.InputControl import hasInput
+from CarnageEngine.Camera import Camera
 # importing dependencies 
 
 pygame.init()

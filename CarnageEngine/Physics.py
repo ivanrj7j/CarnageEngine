@@ -1,7 +1,7 @@
 import pygame
-from Vector import Vector
-from Vector import calculateAngleBetweenTwoVectors
-from Vector import calculateDistanceBetweenTwoVectors
+from .Vector import Vector
+from .Vector import calculateAngleBetweenTwoVectors
+from .Vector import calculateDistanceBetweenTwoVectors
 import math
 
 class Physics():

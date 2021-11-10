@@ -1,7 +1,7 @@
 import pygame
 from pygame import color
-from Physics import Physics
-from Vector import Vector
+from .Physics import Physics
+from .Vector import Vector
 
 class Entity(Physics):
     def __init__(self,superParent:pygame.display,parent, object:pygame.Rect,color:tuple,collisionObjects:list, centreOfMass:Vector,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False, shouldUseColor=True) -> None:

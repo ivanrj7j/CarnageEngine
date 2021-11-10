@@ -1,7 +1,7 @@
 import pygame
 from pygame import color
-from Entity import Entity
-from Vector import Vector
+from .Entity import Entity
+from .Vector import Vector
 from pygame.color import Color
 
 class Camera():
