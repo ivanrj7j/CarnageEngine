@@ -25,7 +25,7 @@ class Entity(Physics):
         self.rotation = 0
         # Initialising all the variables 
 
-    def update(self, deltaTime):
+    def update(self, deltaTime, offset:Vector):
         if not self.kinematic:
             self.collision(deltaTime)
             if self.doesapplyGravity:
@@ -36,8 +36,9 @@ class Entity(Physics):
         if self.shouldUseColor:
             self.surface.fill(self.color)
             # filling the color 
-
-        self.superParent.blit(self.surface, (self.object.x, self.object.y, self.object.width, self.object.height))
+        objectOffset = Vector(self.object.x + offset.x , self.object.y + offset.y)
+        print(objectOffset)
+        self.superParent.blit(self.surface, (objectOffset.x, objectOffset.y, self.object.width, self.object.height))
         # drawing the object 
 
         

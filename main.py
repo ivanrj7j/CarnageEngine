@@ -1,8 +1,10 @@
+from math import trunc
 import pygame
 import time
 from Vector import Vector
 from Entity import Entity
 from InputControl import hasInput
+from Camera import Camera
 # importing dependencies 
 
 pygame.init()
@@ -14,8 +16,6 @@ FPS = 60
 DefaultGravity = 9.80665
 # defining the default gravity of the scene 
 
-sprite = pygame.image.load("testFiles/frame6104.jpg")
-sprite = pygame.transform.scale(sprite, (80, 45))
 
 screen = pygame.display.set_mode(displayResoultion)
 # initalising the display 
@@ -23,17 +23,16 @@ pygame.display.set_caption("Physics Engine?")
 # setting the title 
 borderLine = pygame.Rect(0, displayResoultion[1], displayResoultion[0], 50)
 collisionObjects = [borderLine]
-rectBoi = Entity(object=pygame.Rect(30, 30, 80, 45), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector(30,30), surface=sprite, shouldUseColor=False)
+rectBoi = Entity(object=pygame.Rect(30, 30, 80, 45), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector(30,30), surface=pygame.Surface((80,45)), shouldUseColor=True)
 # the default square 
 
-def drawing(deltatime):
-    screen.fill((255,255,255))
-    # filling the screen 
-    rectBoi.update(deltaTime=deltatime)
-    # updating the rectangle 
+defaultCamera = Camera(Vector(20,0), screen)
+
+def drawing(deltatime, entityList):
+    defaultCamera.update(entityList, deltatime)
 
 def jump(entity:Entity, dt):
-    entity.applyForce(dt, Vector(7, -50), applyKineticEnergy=True)
+    entity.applyForce(dt, Vector(0.5, -50), applyKineticEnergy=True)
 
 def inputControls(key, dt):
     if key == pygame.K_SPACE:
@@ -50,7 +49,7 @@ def main():
         previousFrame = time.time()
         # updating deltaTime 
 
-        drawing(deltatime=deltaTime)
+        drawing(deltatime=deltaTime, entityList=[rectBoi])
         # drawing everything 
 
         pygame.display.update()

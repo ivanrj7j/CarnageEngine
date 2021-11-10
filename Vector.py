@@ -57,6 +57,9 @@ class Vector():
         return str((self.x, self.y))
         # returns a string of the object when needed 
 
+    def zero():
+        return Vector(0,0)
+
 
 
 def calculateAngleBetweenTwoVectors(vectorA:Vector, vectorB:Vector):
