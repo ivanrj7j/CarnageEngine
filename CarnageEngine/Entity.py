@@ -3,6 +3,10 @@ from pygame import color
 from .Physics import Physics
 from .Vector import Vector2
 
+"""
+Still under development, full features not yet implemented
+"""
+
 class Entity(Physics):
     def __init__(self,superParent:pygame.display,parent, object:pygame.Rect,color:tuple,collisionObjects:list, centreOfMass:Vector2,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=9.81, mass = 1, doesapplyGravity = True, airDrag = 0.2, Kinematic=False, shouldUseColor=True, isActive = True):
         self.object = object

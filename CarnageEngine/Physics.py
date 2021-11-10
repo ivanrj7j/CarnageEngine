@@ -4,6 +4,10 @@ from .Vector import calculateAngleBetweenTwoVectors
 from .Vector import calculateDistanceBetweenTwoVectors
 import math
 
+"""
+Still under development, full features not yet implemented
+"""
+
 class Physics():
     def __init__(self, object:pygame.Rect,collisionObjects:list, centreOfMass:Vector2,surface:pygame.Surface, gravityScale=1, defaultGravityAccelaration=-9.81, mass = 1, airDrag = 0.2) -> None:
         self.object = object
@@ -34,6 +38,10 @@ class Physics():
             # moving the object 
             # calculating the motion 
 
+            """
+            Calculation of the rotation is behaving buggy, so I commented it out
+            This would be implemented in the future
+            """
             # radius = calculateDistanceBetweenTwoVectors(self.centreOfMass, Vector2(0, self.object.width / 2))
             # # calculating distance between centre of mass and top of the object 
             # force_applying = ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass)
@@ -103,12 +111,6 @@ class Physics():
             if self.object.bottom >= collisionBody.y:
                 self.object.y = collisionBody.y - self.object.height
                 # stopping the overlaping of 2 object 
-
-    def calculateVelocityandForce(self,dt):
-        pass
-
-    def calculateAccelaration(self, dt):
-       pass
 
     def rotate(self, surface, angle):
         """Rotates the given surface with the given angle"""

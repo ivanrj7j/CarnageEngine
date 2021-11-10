@@ -1,5 +1,8 @@
 import pygame
 
+"""
+Yet to implement
+"""
 
 def hasInput(keys:dict, keysPressed):
     # keys format = key : [desired keys]
