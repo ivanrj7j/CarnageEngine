@@ -144,3 +144,4 @@ __pycache__/Physics.cpython-39.pyc
 __pycache__/
 testFiles/
 __pycache__/*
+./.vscode/

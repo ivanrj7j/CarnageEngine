@@ -26,8 +26,13 @@ class Entity(Physics):
         self.isActive = isActive
         # Initialising all the variables 
 
-    def update(self, deltaTime, offset:Vector2):
+    def update(self, deltaTime, offset:Vector2, scale:float):
         if self.isActive:
+            newWidth = scale * self.object.width
+            newHieght = scale * self.object.height
+            newSurface = pygame.transform.scale(self.surface, (self.surface.get_width() * scale, self.surface.get_height() * scale))
+            # scaling up the object according to the camera
+
             if not self.kinematic:
                 self.collision(deltaTime)
                 if self.doesapplyGravity:
@@ -38,9 +43,10 @@ class Entity(Physics):
             if self.shouldUseColor:
                 self.surface.fill(self.color)
                 # filling the color 
-            objectOffset = Vector2(self.object.x + offset.x , self.object.y + offset.y)
+
+            objectOffset = Vector2((self.object.x + offset.x) * scale , (self.object.y + offset.y) * scale)
             print(objectOffset)
-            self.superParent.blit(self.surface, (objectOffset.x, objectOffset.y, self.object.width, self.object.height))
+            self.superParent.blit(newSurface, (objectOffset.x, objectOffset.y, newWidth, newHieght))
             # drawing the object 
     
     def toggleActive(self, *keyWordArguments:bool):
