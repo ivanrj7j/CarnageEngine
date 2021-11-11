@@ -32,9 +32,13 @@ class Entity(Physics):
 
     def update(self, deltaTime, offset:Vector2, scale:float):
         if self.isActive:
+            if scale < 0:
+                scale = (1/scale) * -1
+            elif scale == 0:
+                scale = 1
             newWidth = scale * self.object.width
             newHieght = scale * self.object.height
-            newSurface = pygame.transform.scale(self.surface, (self.surface.get_width() * scale, self.surface.get_height() * scale))
+            newSurface = pygame.transform.scale(self.surface, (int(self.surface.get_width() * scale), int(self.surface.get_height() * scale)))
             # scaling up the object according to the camera
 
             if not self.kinematic:
@@ -47,7 +51,7 @@ class Entity(Physics):
             if self.shouldUseColor:
                 self.surface.fill(self.color)
                 # filling the color 
-
+            
             objectOffset = Vector2((self.object.x + offset.x) * scale , (self.object.y + offset.y) * scale)
             self.superParent.blit(newSurface, (objectOffset.x, objectOffset.y, newWidth, newHieght))
             # drawing the object 
