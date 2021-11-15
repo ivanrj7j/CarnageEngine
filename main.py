@@ -3,9 +3,10 @@ This file is just for debugging, ignore this file.
 This file would be removed when the first version is released.
 You can use this as a guid on how to use the game engine
 """
-from math import trunc
 import pygame
 import time
+
+from pygame import image
 from CarnageEngine.Vector import Vector2, Vector3
 from CarnageEngine.Entity import Entity
 from CarnageEngine.InputControl import hasInput
