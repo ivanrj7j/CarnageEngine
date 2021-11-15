@@ -55,6 +55,8 @@ def inputControls(key, dt):
         zoom(Vector3(-5, 0, 0))
     if key == pygame.K_d:
         zoom(Vector3(5, 0, 0))
+    if key == pygame.K_v:
+        defaultCamera.wiggle(4, min=-4)
 
 
 def main():
@@ -77,6 +79,9 @@ def main():
                 running = False
             elif event.type == pygame.KEYDOWN:
                 inputControls(event.key, deltaTime)
+            keysPressed = pygame.key.get_pressed()
+            if keysPressed[pygame.K_j]:
+                defaultCamera.wiggle(min=-4, max= 4)
 
 
     pygame.quit()

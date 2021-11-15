@@ -4,6 +4,7 @@ from .Entity import Entity
 from .Vector import Vector2
 from .Vector import Vector3
 from pygame.color import Color
+from random import randint
 
 class Camera():
     def __init__(self, position:Vector3 ,screen:pygame.display,  defaultBG = Color(255,255,255), active = True, fov=60):
@@ -30,6 +31,14 @@ class Camera():
                     entity.x += cameraOffset.x
                     entity.y += cameraOffset.y
             # updating the Entities 
+
+    def wiggle(self, max:float, baseOfWiggle = Vector3(0, 0, 0), min = 0.0, changeZAxis = False):
+        wiggleOffset = Vector3(randint(min, max), randint(min, max), 0)
+        if changeZAxis:
+            wiggleOffset = Vector3(randint(min, max), randint(min, max), randint(min, max))
+        self.positon = wiggleOffset + baseOfWiggle
+
+
 
     
 
