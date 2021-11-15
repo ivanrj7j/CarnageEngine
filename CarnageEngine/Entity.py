@@ -2,6 +2,7 @@ import pygame
 from pygame import color
 from .Physics import Physics
 from .Vector import Vector2
+import math
 
 """
 Still under development, full features not yet implemented
@@ -30,16 +31,29 @@ class Entity(Physics):
         self.isActive = isActive
         # Initialising all the variables 
 
-    def update(self, deltaTime, offset:Vector2, scale:float):
+    def update(self, deltaTime, offset:Vector2, distance:float, cameraWidth:float, fov:float):
         if self.isActive:
-            if scale < 0:
-                scale = (1/scale) * -1
-            elif scale == 0:
-                scale = 1
-            newWidth = scale * self.object.width
-            newHieght = scale * self.object.height
-            newSurface = pygame.transform.scale(self.surface, (int(self.surface.get_width() * scale), int(self.surface.get_height() * scale)))
-            # scaling up the object according to the camera
+            if distance < 0:
+                d = ((1/distance) * -1) + 1
+            elif distance == 0:
+                d = 1
+            else:
+                d = distance
+            
+            if distance != 0:
+                cameraDistance = d * cameraWidth
+                # hypotenuse = math.sqrt((cameraDistance**2) + ((cameraWidth / 2)**2))
+                # finding the hypotenuse of the imaginary triangle formed by the object and the camera
+                base =  (2*cameraDistance) * math.tan(math.radians(fov / 2))
+                # finding the base of the chord of the circle connecting 2 radius with 'fov' angle distance
+                ratio = cameraWidth / base
+                # finding the ratio of the sizes of the objects 
+
+
+                newWidth = ratio * self.object.width
+                newHieght = ratio * self.object.height
+                newSurface = pygame.transform.scale(self.surface, (int(self.surface.get_width() * ratio), int(self.surface.get_height() * ratio)))
+                # scaling up the object according to the camera
 
             if not self.kinematic:
                 self.collision(deltaTime)
@@ -51,9 +65,12 @@ class Entity(Physics):
             if self.shouldUseColor:
                 self.surface.fill(self.color)
                 # filling the color 
-            
-            objectOffset = Vector2((self.object.x + offset.x) * scale , (self.object.y + offset.y) * scale)
-            self.superParent.blit(newSurface, (objectOffset.x, objectOffset.y, newWidth, newHieght))
+
+            if distance != 0:
+                objectOffset = Vector2((self.object.x * ratio) , (self.object.y * ratio) )
+                self.superParent.blit(newSurface, (objectOffset.x, objectOffset.y, newWidth, newHieght))
+            else:
+                self.superParent.blit(self.surface, (self.object.x, self.object.y, self.object.width, self.object.height))
             # drawing the object 
     
     def toggleActive(self, *keyWordArguments:bool):

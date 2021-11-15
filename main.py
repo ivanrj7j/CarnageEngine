@@ -31,7 +31,7 @@ collisionObjects = [borderLine]
 rectBoi = Entity(object=pygame.Rect(30, 30, 160, 90), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector2(30,30), surface=pygame.Surface((160,90)), shouldUseColor=True)
 # the default square 
 
-defaultCamera = Camera(Vector3(0,0, 1), screen)
+defaultCamera = Camera(Vector3(0, 0, 0), screen)
 # initialising the main camera 
 
 def drawing(deltatime, entityList):
