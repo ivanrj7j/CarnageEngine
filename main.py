@@ -6,7 +6,7 @@ You can use this as a guid on how to use the game engine
 import pygame
 import time
 
-from pygame import image
+from pygame import Color, image
 from CarnageEngine.Vector import Vector2, Vector3
 from CarnageEngine.Entity import Entity
 from CarnageEngine.InputControl import hasInput
@@ -32,19 +32,30 @@ collisionObjects = [borderLine]
 rectBoi = Entity(object=pygame.Rect(30, 30, 160, 90), color=(0,255,255), parent=screen, superParent=screen, gravityScale=1, collisionObjects=collisionObjects, defaultGravityAccelaration=9.80665, centreOfMass=Vector2(30,30), surface=pygame.Surface((160,90)), shouldUseColor=True)
 # the default square 
 
-defaultCamera = Camera(Vector3(0, 0, 0), screen)
+defaultCamera = Camera(Vector3(0, 0, 0), screen, Color(50, 36, 69))
 # initialising the main camera 
 
 def drawing(deltatime, entityList):
     defaultCamera.update(entityList, deltatime)
     
 
-def jump(entity:Entity, dt):
-    entity.applyForce(dt, Vector2(0.5, -50), applyKineticEnergy=True)
+def zoom(value = Vector3(0,0,0.01)):
+    defaultCamera.positon += value
 
 def inputControls(key, dt):
     if key == pygame.K_SPACE:
-        jump(rectBoi, dt)
+        zoom()
+    if key == pygame.K_LSHIFT:
+        zoom(Vector3(0,0,-0.01))
+    if key == pygame.K_w:
+        zoom(Vector3(0, -5, 0))
+    if key == pygame.K_s:
+        zoom(Vector3(0, 5, 0))
+    if key == pygame.K_a:
+        zoom(Vector3(-5, 0, 0))
+    if key == pygame.K_d:
+        zoom(Vector3(5, 0, 0))
+
 
 def main():
     deltaTime = 0
