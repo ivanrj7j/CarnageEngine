@@ -31,12 +31,14 @@ class Physics():
         Applies gravitational force to the object 
         """
         if self.doesapplyGravity:
+
             self.velocity += (0, self.defaultGravityAccelaration*self.gravityScale*self.airDrag)
             # accelarating object 
+
             self.object.x += self.velocity.x * dt
             self.object.y += self.velocity.y * dt
             # moving the object 
-            # calculating the motion 
+            #   calculating the motion 
 
             """
             Calculation of the rotation is behaving buggy, so I commented it out
@@ -61,23 +63,31 @@ class Physics():
         
     def applyForce(self, dt ,force:Vector2, considerMass = True, kineticEnergy = 1, applyKineticEnergy = False):
         """Applies a force to the object"""
+
         if applyKineticEnergy:
             self.kineticEnergy = kineticEnergy
             # applies kinetic energy 
 
         if considerMass:
             self.velocity += force/self.mass
+            # updating the velocity of the object 
+
             self.move(dt)
+            # moving the object 
+
         else :
             self.velocity += force
+            # updating the velocity of the object without considering the mass of the object 
+
             self.move(dt)
-        # calculating the velocity 
+            # moving the object 
         
 
     def move(self, dt):
         """
         Moves the object with the current velocity
         """
+
         self.object.x += self.velocity.x * dt
         self.object.y += self.velocity.y * dt
         
@@ -86,24 +96,36 @@ class Physics():
         """
         Handles collision
         """
+
         for collisionBody in self.collisionObjects:
+
             if self.object.bottom >= collisionBody.y:
                 """
                 does this every time when the bottom of the object is colliding with the
                 top of any other object
                 """
+
                 self.velocity = Vector2(0,0)
+                # setting the velocity to zero 
+
                 self.doesapplyGravity = False
                 # stopping the gravity force 
+
                 if self.kineticEnergy <= 1 and self.kineticEnergy >=0:
                     self.kineticEnergy -= ((self.defaultGravityAccelaration*self.gravityScale*self.airDrag) * self.mass * self.object.height) / 1000
+                    # reducing the kinetic energy of the object when in collides 
+
                     if self.kineticEnergy < 0:
                         self.kineticEnergy = 0
-                # reducing the kinetic energy of the object 
+                        # stops the kinetic energy from going below zero
+ 
                 force = Vector2(0,-(self.defaultGravityAccelaration*self.gravityScale*self.airDrag)) * self.mass * self.object.height / 5 
                 force = Vector2(force.x * self.kineticEnergy, force.y * self.kineticEnergy)
+                # calculating the reaction force 
+
                 self.applyForce(force=force, considerMass=False, dt=dt)
                 # applying the reaction force to the object 
+                
             else:
                 self.doesapplyGravity = True
                 # makes the object affected by gravity when it is not collideed 

@@ -1,9 +1,13 @@
 from PIL import Image
-from pygame import image
+import PIL
+from pygame import Rect, image
 import io
 
+"""
+Development postponed
+"""
 class ProcessImage():
-    def __init__(self, filePath:str, size):
+    def __init__(self, filePath:str, size=1):
         """
         Processes image according to the needs and
         returns a pygame surface
@@ -14,7 +18,7 @@ class ProcessImage():
                 self.image = Image.open(filePath).resize(size)
             elif type(size) == int or type(size) == float:
                 i = Image.open(filePath)
-                self.image = i.resize((int(i.width / size), int(i.height / size)))
+                self.image = i.resize((int(i.width * size), int(i.height * size)))
             # loading the image and resizing if needed 
         else:
             self.image = Image.open(filePath)
@@ -24,13 +28,20 @@ class ProcessImage():
         self.getSurface(True)
         # getting the image as a pygame surface 
     def getSurface(self, updateSurface = False):
-        if updateSurface:
-            img_byte_arr = io.BytesIO()
-            self.image.save(img_byte_arr, format='PNG')
-            self.surface = image.load(img_byte_arr.getvalue())
-        return self.surface
-
+        spriteSize = list(self.image.size)
+        # getting the size of the sprite 
         
+        pixelList = {}
+        # initialisng a list for all pixels
 
-a = ProcessImage("../testFiles/frame6104.jpg", 10)
-print(a.image)
+        for x in range(0, spriteSize[0]):
+            for y in range(0, spriteSize[1]):
+                """
+                Looping through the image
+                """
+                color = self.image.getpixel((x,y))
+                # getting the color of the pixel  
+
+                pixelList[(x,y)] = color
+
+        return (pixelList, tuple(spriteSize))
