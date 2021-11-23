@@ -1,7 +1,7 @@
 import pygame
 from pygame import color
 from .Physics import Physics
-from .Vector import Vector2
+from .Vector import *
 import math
 
 """
